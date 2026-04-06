@@ -8,7 +8,10 @@ import os
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
-    CORS(app, resources={r"/api/*": {"origins": "https://task-tracker-frontend.onrender.com"}})
+
+    frontend_url = os.environ.get('FRONTEND_URL', 'http://localhost:3000')
+
+    CORS(app, resources={r"/api/*": {"origins": [frontend_url, "http://localhost:3000"]}})
     
     db.init_app(app)
     ma.init_app(app)
