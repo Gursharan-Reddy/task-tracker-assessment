@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://127.0.0.1:5000/api/tasks';
+const API_BASE_URL = 'https://task-tracker-assessment.onrender.com/api/tasks';
 
 export const taskApi = {
     getAll: (filters) => axios.get(API_BASE_URL, { params: filters }),

@@ -8,15 +8,13 @@ import os
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
-    
-    CORS(app)
+    CORS(app, resources={r"/api/*": {"origins": "https://task-tracker-frontend.onrender.com"}})
     
     db.init_app(app)
     ma.init_app(app)
     
     app.register_blueprint(task_bp, url_prefix='/api')
     
-    # Ensure the instance folder exists for SQLite
     try:
         os.makedirs(app.instance_path)
     except OSError:
@@ -27,7 +25,6 @@ def create_app():
         
     return app
 
-# CRITICAL: Gunicorn needs this 'app' variable at the top level
 app = create_app()
 
 if __name__ == '__main__':
